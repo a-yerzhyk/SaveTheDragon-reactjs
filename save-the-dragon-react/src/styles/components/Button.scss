@@ -1,0 +1,33 @@
+.button {
+  --button-color: #c45512;
+  --button-shadow-color: #92400E;
+
+  padding: 8px 16px;
+  border: 0;
+  background-color: var(--button-color);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 5px;
+  box-shadow: 0 8px var(--button-shadow-color);
+  transition: all 0.10s ease-out;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(8px);
+    box-shadow: 0 0 var(--button-shadow-color);
+  }
+
+  &_active {
+    transform: translateY(8px);
+    box-shadow: 0 0 var(--button-shadow-color);
+    opacity: 0.5;
+  }
+}
+
+.menu-button {
+  --button-color: #377ef0;
+  --button-shadow-color: #2d67c4;
+}

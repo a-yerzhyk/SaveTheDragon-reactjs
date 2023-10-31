@@ -1,0 +1,5 @@
+.hero-stats {
+  &__health {
+    @apply bg-gradient-to-b from-[#65a30d] to-[#446e08]
+  }
+}

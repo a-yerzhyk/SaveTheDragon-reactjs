@@ -1,0 +1,32 @@
+@keyframes person-default-anim-r {
+  0% {
+    transform: translateY(0px) scaleX(-1);
+  }
+  50% {
+    transform: translateY(-4px) scaleX(-1);
+  }
+  100% {
+    transform: translateY(0px) scaleX(-1);
+  }
+}
+
+@keyframes person-default-anim-l {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.person {
+  &_right {
+    animation: person-default-anim-r 1s linear infinite;
+  }
+  &_left {
+    animation: person-default-anim-l 1s linear infinite;
+  }
+}

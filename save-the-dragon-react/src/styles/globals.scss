@@ -1,0 +1,27 @@
+@import './background.scss';
+@import './components/_styles.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-grid {
+  background-image: linear-gradient(rgba(130, 131, 133, 0.2) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(130, 131, 133, 0.2) 2px, transparent 2px);
+  background-size: 30px 30px;
+}
+
+.bg-suburb {
+  background-image: url('../assets/grass.jfif');
+}
+
+.bg-town {
+  background-image: url('../assets/town.jfif');
+  background-size: 100px 100px;
+}
+
+.bg-castle {
+  background-image: url('../assets/brick-wall.png');
+  background-color: #000000;
+}
+
