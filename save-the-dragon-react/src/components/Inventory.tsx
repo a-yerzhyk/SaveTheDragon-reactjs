@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Inventory, InventoryCell, ITEM, EVENTS } from 'save-the-dragon'
 import { classNames } from '@/utils/classNames'
 import useEventManager from '@/hooks/useEventManager'
+import Item from './Item'
 
 const INVENTORY_SIZE = 5
 
@@ -43,12 +44,13 @@ export default function Inventory({
           <div
             key={index}
             className={classNames(
-              'flex items-center justify-center flex-1 bg-[#92400E] border-4 border-orange-950 rounded-full p-2',
+              'relative flex items-center justify-center flex-1 bg-gradient-to-b from-[#c8df61] to-[#54be71] border-4 border-orange-950 rounded-full p-2',
               cell ? 'cursor-pointer' : ''
             )}
             onClick={() => cell && handleClick(cell.item.type)}
           >
-            {cell && `${cell.item.label} (${cell.quantity})`}
+            {cell && <div className="absolute top-4 right-4 flex items-center justify-center w-6 h-6 text-white bg-green-700 rounded-full border-2 border-white z-10">{cell.quantity}</div>}
+            {cell && <Item type={cell.item.type} />}
           </div>
         ))
       }

@@ -1,19 +1,30 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { classNames } from '@/utils/classNames'
-import { useState } from 'react'
+import { GameConfig } from 'save-the-dragon'
 import Image from 'next/image'
 
 import heroImageBig from '@/assets/person/knight_big.png'
+import Store from '@/utils/store';
+
+type SlotConfig = Partial<GameConfig> | null
+
+type Slot = {
+  id: string,
+  name: string,
+  config: SlotConfig
+}
 
 export default function MainMenu ({
   onNewGame,
   onLoadGame
 }: {
-  onNewGame?: (slotId: number) => void
-  onLoadGame?: (slotId: number) => void
+  onNewGame?: (slotId: string) => void
+  onLoadGame?: (slotId: string, config: SlotConfig) => void
 }) {
   const [isNewGame, setIsNewGame] = useState<boolean>(false)
+  const [gameSlots, setGameSlots] = useState<Slot[]>([])
 
   const handleNewGameClick = () => {
     setIsNewGame(true)
@@ -23,41 +34,34 @@ export default function MainMenu ({
     setIsNewGame(false)
   }
 
-  const startNewGame = (slotId: number, config: string | null) => {
-    if (config) {
-      return
-    }
+  const startNewGame = (slotId: string) => {
     if (onNewGame) {
       onNewGame(slotId)
     }
   }
 
-  const loadGame = (slotId: number, config: string | null) => {
+  const loadGame = (slotId: string, config: SlotConfig) => {
     if (!config) {
       return
     }
     if (onLoadGame) {
-      onLoadGame(slotId)
+      onLoadGame(slotId, config)
     }
   }
 
-  const gameSlots = [
-    {
-      id: 1,
-      name: 'Slot 1',
-      config: null
-    },
-    {
-      id: 2,
-      name: 'Slot 2',
-      config: null
-    },
-    {
-      id: 3,
-      name: 'Slot 3',
-      config: null
-    }
-  ]
+  useEffect(() => {
+    const { get } = Store()
+    const slots = ['1', '2', '3']
+    const gameSlots = slots.map(slot => {
+      const config = get(slot) as SlotConfig
+      return {
+        id: slot,
+        name: 'Slot ' + slot,
+        config
+      }
+    })
+    setGameSlots(gameSlots)
+  }, [])
 
   return (
     <div className="main-menu flex gap-x-8 w-full h-full">
@@ -89,7 +93,7 @@ export default function MainMenu ({
           <div className="flex flex-col gap-10">
             {isNewGame
               ? gameSlots.map((slot) => (
-                  <button className="button" key={slot.id} onClick={() => startNewGame(slot.id, slot.config)}>
+                  <button className="button" key={slot.id} onClick={() => startNewGame(slot.id)}>
                     &lt;{slot.name}&gt;
                   </button>
                 ))

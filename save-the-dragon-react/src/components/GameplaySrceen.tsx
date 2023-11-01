@@ -18,18 +18,20 @@ import Hero from './Hero'
 import Enemy from './Enemy'
 
 export default function GameplaySrceen ({
-  currentLocation,
+  location,
+  direction,
   onMove,
   onTeleport,
   onBattleStart
 }: {
-  currentLocation: GameLocationConfig
+  location: GameLocationConfig
+  direction: Direction
   onMove: (direction: Direction) => void
   onTeleport: (locationId: LocationID) => void
   onBattleStart: (enemyId: PersonID) => HitTheNumberBattle | null
 }) {
-  const [location, setLocation] = useState(currentLocation)
-  const [direction, setDirection] = useState<Direction>('l')
+  const [heroLocation, setLocation] = useState(location)
+  const [heroDirection, setDirection] = useState<Direction>(direction)
   const [battle, setBattle] = useState<HitTheNumberBattle | null>(null)
 
   const handleMove = (nextLocation: GameLocationConfig, nextDirection: Direction) => {
@@ -45,7 +47,7 @@ export default function GameplaySrceen ({
     }
   }
 
-  const paths = location.linkedLocations.map(linkedLocation => {
+  const paths = heroLocation.linkedLocations.map(linkedLocation => {
     const direction = linkedLocation.direction
     return (
       <div
@@ -58,18 +60,18 @@ export default function GameplaySrceen ({
       ></div>
     )
   })
-  const teleportPath = location.teleport !== null ? (
+  const teleportPath = heroLocation.teleport !== null ? (
     <>
       <div
         className={classNames(
           'absolute w-[10px] h-[30px] bg-red-800 cursor-pointer',
-          calcDirectionPosition(location.teleport.direction)
+          calcDirectionPosition(heroLocation.teleport.direction)
         )}
-        onClick={() => onTeleport(location.teleport?.location.id || 0)}
+        onClick={() => onTeleport(heroLocation.teleport?.location.id || 0)}
       ></div>
     </>
   ) : null
-  const enemies = Array.from(location.personsOnLocation).map(([id, enemy]) => {
+  const enemies = Array.from(heroLocation.personsOnLocation).map(([id, enemy]) => {
     return (
       <Enemy
         key={id}
@@ -82,8 +84,8 @@ export default function GameplaySrceen ({
     )
   })
   
-  const heroPosition = calcHeroPosition(direction)
-  const heroImageDirection = direction.includes('l') ? 'person_right' : 'person_left'
+  const heroPosition = calcHeroPosition(heroDirection)
+  const heroImageDirection = heroDirection.includes('l') ? 'person_right' : 'person_left'
 
   return (
     <div className="relative w-full h-full flex gap-y-4 justify-center items-center">
@@ -96,7 +98,7 @@ export default function GameplaySrceen ({
           {paths}
           {teleportPath}
           <h3 className="absolute top-10 pt-4 text-center text-2xl capitalize">
-            {location.name} {location.id}
+            {heroLocation.name} {heroLocation.id}
           </h3>
           <div className="flex justify-center gap-x-4">
             {enemies}

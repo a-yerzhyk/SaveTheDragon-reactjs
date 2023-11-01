@@ -41,8 +41,7 @@ export default function HeroStats ({
         <div style={{ transform: `translateX(${healthPercentage}%)` }} className="absolute -left-[100%] w-full h-full bg-white transition-transform duration-300"></div>
         <div style={{ transform: `translateX(${healthPercentage}%)` }} className="absolute -left-[100%] w-full h-full hero-stats__health"></div>
         <p
-          className="text-lg text-white relative z-10"
-          style={{ textShadow: '2px 2px 0px black' }}
+          className="text-shadow text-lg text-white relative z-10"
         >
           {heroHealth} / {heroMaxHealth}
         </p>

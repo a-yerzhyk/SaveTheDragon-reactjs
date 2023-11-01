@@ -9,15 +9,18 @@ import { HitTheNumberBattle } from 'save-the-dragon'
 
 export default function Game ({
   game,
+  onSaveGame
 }: {
   game: STDGame
+  onSaveGame: () => void
 }) {
   const hero = game.hero
   const heroHealth = hero.getHealth()
   const heroMaxHealth = hero.getMaxHealth()
   const heroStrength = hero.getStrength()
   const heroInventory = hero.getInventory()
-  const currentLocation = hero.currentLocation
+  const heroLocation = hero.currentLocation
+  const heroDirection = hero.getDirection()
 
   const getSection = (section: SECTION) => {
     return game.getSection(section)
@@ -43,14 +46,19 @@ export default function Game ({
     return null
   }
 
+  const saveGame = () => {
+    onSaveGame()
+  }
+
   return (
     <>
       {game &&
         <div className="h-full w-full flex flex-col">
           <div className="flex-1 basis-[68%]">
-            {currentLocation &&
+            {heroLocation &&
               <GameplaySrceen
-                currentLocation={currentLocation}
+                location={heroLocation}
+                direction={heroDirection}
                 onMove={moveHero}
                 onTeleport={teleportHero}
                 onBattleStart={startBattle}
@@ -65,9 +73,9 @@ export default function Game ({
               <Inventory inventory={heroInventory} onUse={handleItemUse} />
             </div>
             <div className="flex-1 basis-[30%]">
-              {currentLocation &&
+              {heroLocation &&
                 <MiniMap
-                  location={currentLocation}
+                  location={heroLocation}
                   getSection={getSection}
                 />
               }

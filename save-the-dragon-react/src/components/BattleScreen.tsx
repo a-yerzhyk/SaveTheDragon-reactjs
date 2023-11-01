@@ -9,7 +9,7 @@ import Enemy from './Enemy';
 import { isNumberKeyEvent } from '@/utils/keyEvents'
 
 import Image from 'next/image';
-import battleArena from '@/assets/person/forest_battle.png'
+import battleArena from '@/assets/backgrounds/battle/forest.png'
 
 type NumberObj = {
   num: number,
@@ -159,17 +159,16 @@ function BattleTimer ({
 }) {
   const MAX_TIMER = battle.STEP_LIMIT
   const [timer, setTimer] = useState(MAX_TIMER)
-  const timerPercentage = (timer / MAX_TIMER) * 100
+  const currentTimer = timer < 0 ? 0 : timer
+  const timerPercentage = (currentTimer / MAX_TIMER) * 100
   
   const onTimerTick = (timer: number) => {
-    if (timer >= 0) {
-      setTimer(timer)
-    }
+    setTimer(timer)
   }
   useEventManager(EVENTS.battleTimer, onTimerTick)
 
   return (
-    <div className="relative w-[300px] h-5 rounded overflow-hidden bg-slate-700">
+    <div className="relative flex justify-center items-center w-[300px] h-5 rounded overflow-hidden bg-slate-700">
       <div
         style={{ transform: `translateX(${timerPercentage}%)` }}
         className={classNames(
@@ -178,6 +177,11 @@ function BattleTimer ({
           timerPercentage < 30 ? 'bg-red-500' : timerPercentage < 70 ? 'bg-yellow-500' : 'bg-green-500'
         )}
       ></div>
+      <p
+        className="text-shadow text-lg text-white relative z-10"
+      >
+        {timer + 1}
+      </p>
     </div>
   )
 }
