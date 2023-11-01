@@ -16,6 +16,8 @@ type Slot = {
   config: SlotConfig
 }
 
+const SLOTS = ['1', '2', '3']
+
 export default function MainMenu ({
   onNewGame,
   onLoadGame
@@ -24,7 +26,7 @@ export default function MainMenu ({
   onLoadGame?: (slotId: string, config: SlotConfig) => void
 }) {
   const [isNewGame, setIsNewGame] = useState<boolean>(false)
-  const [gameSlots, setGameSlots] = useState<Slot[]>([])
+  const [gameSlots, setGameSlots] = useState<Slot[]>(SLOTS.map(slot => ({ id: slot, name: 'Slot ' + slot, config: null})))
 
   const handleNewGameClick = () => {
     setIsNewGame(true)
@@ -51,8 +53,7 @@ export default function MainMenu ({
 
   useEffect(() => {
     const { get } = Store()
-    const slots = ['1', '2', '3']
-    const gameSlots = slots.map(slot => {
+    const gameSlots = SLOTS.map(slot => {
       const config = get(slot) as SlotConfig
       return {
         id: slot,
