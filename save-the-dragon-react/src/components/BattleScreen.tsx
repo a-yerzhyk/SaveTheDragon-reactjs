@@ -11,7 +11,7 @@ import { isNumberKeyEvent } from '@/utils/keyEvents'
 import Image from 'next/image';
 import forestArena from '@/assets/backgrounds/battle/forest.png'
 import townArena from '@/assets/backgrounds/battle/town.png'
-import castleArena from '@/assets/backgrounds/battle/forest.png'
+import castleArena from '@/assets/backgrounds/locations/castle.png'
 
 type NumberObj = {
   num: number,
