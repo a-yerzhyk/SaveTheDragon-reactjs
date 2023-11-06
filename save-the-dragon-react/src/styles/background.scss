@@ -16,28 +16,28 @@
 }
 .game-background .air.air1{
   animation: wave 30s linear infinite;
-  z-index: 1000;
+  z-index: 9;
   opacity: 1;
   animation-delay: 0s;
   bottom: 0;
 }
 .game-background .air.air2{
   animation: wave2 15s linear infinite;
-  z-index: 999;
+  z-index: 8;
   opacity: 0.5;
   animation-delay: -5s;
   bottom: 10px;
 }
 .game-background .air.air3{
   animation: wave 30s linear infinite;
-  z-index: 998;
+  z-index: 7;
   opacity: 0.2;
   animation-delay: -2s;
   bottom: 15px;
 }
 .game-background .air.air4{
   animation: wave2 5s linear infinite;
-  z-index: 997;
+  z-index: 6;
   opacity: 0.7;
   animation-delay: -5s;
   bottom: 20px;
@@ -101,5 +101,27 @@
     height: 100%;
     background: radial-gradient(rgba(0, 0, 0, 0.2) 10%, rgba(255, 255, 255, 0) 10%);
     background-size: 20px 20px;
+  }
+}
+
+.gameover-bg {
+  @apply absolute w-full h-full top-0 left-0 z-10 transition-all duration-1000;
+
+  &__r {
+    @apply translate-x-[-100%];
+    background: linear-gradient(to right, #000000, #000000 90%, rgba(0, 0, 0, 0));
+
+    &_active {
+      @apply translate-x-0;
+    }
+  }
+
+  &__l {
+    @apply translate-x-[100%];
+    background: linear-gradient(to left, #000000, #000000 90%, rgba(0, 0, 0, 0));
+
+    &_active {
+      @apply translate-x-0;
+    }
   }
 }

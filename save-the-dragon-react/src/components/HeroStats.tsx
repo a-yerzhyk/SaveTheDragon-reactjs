@@ -1,6 +1,6 @@
 'use client'
 
-import { EVENTS } from 'save-the-dragon'
+import { EVENTS, ENEMY, HERO } from 'save-the-dragon'
 import useEventManager from '@/hooks/useEventManager'
 import { useState } from 'react'
 
@@ -19,14 +19,14 @@ export default function HeroStats ({
 
   const healthPercentage = (heroHealth / heroMaxHealth) * 100
 
-  const updateHealth = (id: number, type: string, health: number) => {
-    if (type === 'hero') {
+  const updateHealth = (id: number, type: ENEMY | HERO, health: number) => {
+    if (type === 'Hero') {
       setHeroHealth(health)
     }
   }
 
   const updateStrength = (id: number, type: string, strength: number) => {
-    if (type === 'hero') {
+    if (type === 'Hero') {
       setHeroStrength(strength)
     }
   }
