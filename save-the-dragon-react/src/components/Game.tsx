@@ -50,18 +50,25 @@ export default function Game ({
     onSaveGame()
   }
 
+  const saveTheDragon = () => {
+    game.saveTheDragon()
+  }
+
   return (
     <>
       {game &&
         <div className="h-full w-full flex flex-col">
+          <button className="absolute top-2 right-2 button z-20" onClick={saveGame}>Save Game</button>
           <div className="flex-1 basis-[68%]">
             {heroLocation &&
               <GameplaySrceen
+                game={game}
                 location={heroLocation}
                 direction={heroDirection}
                 onMove={moveHero}
                 onTeleport={teleportHero}
                 onBattleStart={startBattle}
+                onSaveDragon={saveTheDragon}
               />
             }
           </div>

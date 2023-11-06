@@ -22,6 +22,11 @@ export default function Frame() {
   }
   useEventManager(EVENTS.gameOver, onGameOver)
 
+  const onGameWin = () => {
+    setGame(null)
+  }
+  useEventManager(EVENTS.gameWin, onGameWin)
+
   const newGame = (slotId: string) => {
     const game = new STDGameCreator().createGame()
     setCurrentSlot(slotId)
@@ -46,7 +51,6 @@ export default function Frame() {
 
   return (
     <div className="relative w-[60%] h-[70%] border-4 border-gray-800 rounded-2xl overflow-hidden">
-      <button className="absolute top-2 right-2 button z-10" onClick={saveGame}>Save Game</button>
       {!game && <MainMenu onNewGame={newGame} onLoadGame={loadGame} />}
       {game && <Game game={game} onSaveGame={saveGame} />}
     </div>

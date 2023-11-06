@@ -26,5 +26,9 @@
 }
 
 .text-shadow {
-  text-shadow: 2px 2px 0px black
+  text-shadow: 2px 2px 0px black;
+
+  &_white {
+    text-shadow: 2px 2px 0px rgb(255, 255, 255, 0.3);
+  }
 }

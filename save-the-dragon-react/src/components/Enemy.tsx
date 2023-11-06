@@ -32,9 +32,9 @@ export default function Enemy ({
   const enemyMaxHealth = maxHealth
   const healthPercentage = (enemyHealth / enemyMaxHealth) * 100
 
-  const updateHealth = (targetId: PersonID, type: string, health: number) => {
-    if (id === targetId) {
-      setEnemyHealth(health)
+  const updateHealth = (targetId: PersonID, type: ENEMY | 'hero', newHealth: number) => {
+    if (id === targetId && type !== 'hero') {
+      setEnemyHealth(newHealth)
     }
   }
 

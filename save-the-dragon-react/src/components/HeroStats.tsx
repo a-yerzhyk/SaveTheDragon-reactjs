@@ -38,6 +38,9 @@ export default function HeroStats ({
   return (
     <>
       <div className="relative flex justify-center items-center w-full h-full bg-slate-700">
+        <div className="flex items-center absolute -top-10 left-0 h-10 px-3 text-center text-lg font-medium text-shadow_white capitalize dot-bg dot-bg_red border-y-2 border-r-2 border-gray-800 rounded-tr-2xl">
+          Strength: {heroStrength}
+        </div>
         <div style={{ transform: `translateX(${healthPercentage}%)` }} className="absolute -left-[100%] w-full h-full bg-white transition-transform duration-300"></div>
         <div style={{ transform: `translateX(${healthPercentage}%)` }} className="absolute -left-[100%] w-full h-full hero-stats__health"></div>
         <p

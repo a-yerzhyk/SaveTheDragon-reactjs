@@ -1,15 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { EVENTS, HitTheNumberBattle, ENEMY } from "save-the-dragon";
+import { EVENTS, HitTheNumberBattle, ENEMY, SECTION } from "save-the-dragon";
 import useEventManager from '@/hooks/useEventManager'
 import { classNames } from '@/utils/classNames';
-import Hero from './Hero';
+import { Hero } from './Person';
 import Enemy from './Enemy';
 import { isNumberKeyEvent } from '@/utils/keyEvents'
 
 import Image from 'next/image';
-import battleArena from '@/assets/backgrounds/battle/forest.png'
+import forestArena from '@/assets/backgrounds/battle/forest.png'
+import townArena from '@/assets/backgrounds/battle/town.png'
+import castleArena from '@/assets/backgrounds/battle/forest.png'
 
 type NumberObj = {
   num: number,
@@ -18,12 +20,15 @@ type NumberObj = {
 
 export default function BattleScreen ({
   battle,
+  section,
   onBattleEnd
 }: {
   battle: HitTheNumberBattle,
+  section: SECTION,
   onBattleEnd: () => void
 }) {
   const [battleStarted, setBattleStarted] = useState(false)
+  const backgroundImage = getBattleBackground(section)
 
   const startBattle = () => {
     setBattleStarted(true)
@@ -53,7 +58,7 @@ export default function BattleScreen ({
 
   return (
     <div className="flex flex-col w-full h-full">
-      <Image className="absolute top-0 left-0 w-full h-full" src={battleArena} alt="battle-arena"/>
+      <Image className="absolute top-0 left-0 w-full h-full" src={backgroundImage} alt="battle-arena"/>
       <div className="flex items-end justify-between basis-[70%] px-[200px] z-10">
         <div className="person_right">
           <Hero size={230} />
@@ -123,7 +128,7 @@ function NumbersArray ({
   }, [])
 
   return (
-    <div className="flex border-[4px] border-black rounded-md tabular-nums">
+    <div className="flex border-[4px] border-black rounded-md tabular-nums bg-gray-400">
       {new Array(maxStepsCount).fill(null).map((_, index) => {
         const obj = numbersArray[index]
         if (!obj && numbersArray.length === index) {
@@ -184,4 +189,15 @@ function BattleTimer ({
       </p>
     </div>
   )
+}
+
+function getBattleBackground(section: SECTION) {
+  switch (section) {
+    case SECTION.SUBURB:
+      return forestArena
+    case SECTION.TOWN:
+      return townArena
+    case SECTION.CASTLE:
+      return castleArena
+  }
 }
